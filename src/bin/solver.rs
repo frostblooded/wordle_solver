@@ -3,7 +3,6 @@ use std::{collections::HashMap, str::Chars};
 const INPUT_FILE_PATH: &str = "resources/words_5_chars.txt";
 
 type Word = String;
-type Words = Vec<Word>;
 
 #[derive(Debug)]
 enum CharFeedback {
@@ -17,14 +16,16 @@ struct Knowledge {
     known_letters: [Option<char>; 5],
     excluded_letters: Vec<char>,
     misplaced_letters: HashMap<char, Vec<usize>>,
+    available_words: Vec<Word>,
 }
 
 impl Knowledge {
-    fn new() -> Self {
+    fn new(available_words: Vec<Word>) -> Self {
         Self {
             known_letters: [None; 5],
             excluded_letters: vec![],
             misplaced_letters: HashMap::new(),
+            available_words,
         }
     }
 
@@ -65,18 +66,67 @@ fn get_char_counts(word: &Word) -> HashMap<char, u8> {
     results
 }
 
-fn pick_word(words: &Words) -> Option<&Word> {
-    for word in words {
-        let char_counts: HashMap<char, u8> = get_char_counts(word);
+fn has_repeating_letters(word: &Word) -> bool {
+    get_char_counts(word).values().any(|&v| v >= 2)
+}
 
-        if char_counts.values().any(|&v| v >= 2) {
-            continue;
+fn has_excluded_letters(word: &Word, knowledge: &Knowledge) -> bool {
+    for ch in word.chars() {
+        if knowledge.excluded_letters.contains(&ch) {
+            return true;
         }
-
-        return Some(word);
     }
 
-    words.first()
+    false
+}
+
+fn has_misplaced_letters(word: &Word, knowledge: &Knowledge) -> bool {
+    for i in 0..5 {
+        let word_ch: char = word.chars().nth(i).expect("Word is shorter than 5 chars?");
+
+        if let Some(word_ch_misplaced_positions) = knowledge.misplaced_letters.get(&word_ch) {
+            if word_ch_misplaced_positions.contains(&i) {
+                return true;
+            }
+        }
+    }
+
+    false
+}
+
+fn has_wrong_known_letters(word: &Word, knowledge: &Knowledge) -> bool {
+    for i in 0..5 {
+        let word_ch: char = word.chars().nth(i).expect("Word is shorter than 5 chars?");
+
+        if let Some(known_letter) = knowledge
+            .known_letters
+            .get(i)
+            .expect("Known letters array is not 5 chars long?")
+        {
+            if word_ch != *known_letter {
+                return true;
+            }
+        }
+    }
+
+    false
+}
+
+fn is_word_allowed(word: &Word, knowledge: &Knowledge) -> bool {
+    !has_repeating_letters(word)
+        && !has_excluded_letters(word, knowledge)
+        && !has_misplaced_letters(word, knowledge)
+        && !has_wrong_known_letters(word, knowledge)
+}
+
+fn pick_word(knowledge: &Knowledge) -> Option<&Word> {
+    for word in &knowledge.available_words {
+        if is_word_allowed(word, knowledge) {
+            return Some(word);
+        }
+    }
+
+    knowledge.available_words.first()
 }
 
 fn read_feedback(word: &Word) -> Vec<CharFeedback> {
@@ -120,14 +170,17 @@ fn read_input_words_file() -> Vec<String> {
 
 fn main() {
     let words: Vec<String> = read_input_words_file();
-    let mut knowledge: Knowledge = Knowledge::new();
+    let mut knowledge: Knowledge = Knowledge::new(words);
 
     loop {
-        let selected_word: &Word = pick_word(&words).expect("Couldn't pick word");
+        let selected_word: &Word = pick_word(&knowledge).expect("Couldn't pick word");
         println!("Selected word: {}", selected_word);
 
         let feedback: Vec<CharFeedback> = read_feedback(selected_word);
         knowledge.process_feedback(feedback);
-        println!("Knowledge so far: {:?}", knowledge);
+        println!(
+            "Known letters: {:?}\nMislaplced letters: {:?}\nExcluded letters: {:?}",
+            knowledge.known_letters, knowledge.misplaced_letters, knowledge.excluded_letters
+        );
     }
 }

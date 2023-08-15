@@ -2577,7 +2577,6 @@ ceder
 cedes
 cedis
 cedre
-cedry
 ceiba
 ceibo
 ceile
@@ -4366,7 +4365,6 @@ edits
 edoni
 educe
 educt
-edwin
 eeler
 eemis
 eerie
