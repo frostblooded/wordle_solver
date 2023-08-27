@@ -2681,11 +2681,8 @@ cheep
 cheer
 cheet
 chefs
-chego
-cheir
 cheka
 cheke
-cheki
 chela
 chelp
 chena
@@ -3845,7 +3842,6 @@ didnt
 didos
 didst
 didus
-diego
 diene
 dieri
 dyers
@@ -4142,7 +4138,6 @@ dreep
 drees
 dregs
 dreks
-dreng
 drent
 dress
 drest
@@ -4937,7 +4932,6 @@ fezes
 fezzy
 fgrid
 fhrer
-fiant
 fiard
 fiars
 fiats

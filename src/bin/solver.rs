@@ -1,4 +1,10 @@
-use std::{collections::HashMap, str::Chars};
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::{self, Write},
+    iter::Peekable,
+    str::Chars,
+};
 
 const INPUT_FILE_PATH: &str = "resources/words_5_chars.txt";
 
@@ -29,8 +35,14 @@ impl Knowledge {
         }
     }
 
-    fn process_feedback(&mut self, feedback: Vec<CharFeedback>) {
-        for char_feedback in feedback {
+    fn process_feedback(&mut self, feedback: Feedback, word: &Word) {
+        if feedback.not_valid_word {
+            self.remove_available_word(word);
+            self.update_available_words_input_file();
+            return;
+        }
+
+        for char_feedback in feedback.chars_feedback {
             match char_feedback {
                 CharFeedback::NoMatch(ch) => self.excluded_letters.push(ch),
                 CharFeedback::WrongPosition(ch, i) => {
@@ -48,6 +60,41 @@ impl Knowledge {
                     *known_letter_cell = Some(ch);
                 }
             }
+        }
+    }
+
+    fn remove_available_word(&mut self, word: &Word) {
+        if let Ok(word_pos) = self.available_words.binary_search(word) {
+            self.available_words.remove(word_pos);
+        }
+    }
+
+    fn update_available_words_input_file(&self) {
+        let output_file: File = File::create(INPUT_FILE_PATH)
+            .expect("Failed to create and open input file for updating");
+        let mut output_writer: io::BufWriter<File> = io::BufWriter::new(output_file);
+
+        for word in &self.available_words {
+            output_writer
+                .write_fmt(format_args!("{}\n", word))
+                .expect("Failed to write bytes to file");
+        }
+    }
+}
+
+struct Feedback {
+    chars_feedback: Vec<CharFeedback>,
+    not_valid_word: bool,
+}
+
+impl Feedback {
+    fn new() -> Self {
+        let mut chars_feedback: Vec<CharFeedback> = vec![];
+        chars_feedback.reserve(5);
+
+        Self {
+            chars_feedback,
+            not_valid_word: false,
         }
     }
 }
@@ -119,25 +166,34 @@ fn is_word_allowed(word: &Word, knowledge: &Knowledge) -> bool {
         && !has_wrong_known_letters(word, knowledge)
 }
 
-fn pick_word(knowledge: &Knowledge) -> Option<&Word> {
+fn pick_word(knowledge: &Knowledge) -> Option<Word> {
     for word in &knowledge.available_words {
         if is_word_allowed(word, knowledge) {
-            return Some(word);
+            return Some(word.clone());
         }
     }
 
-    knowledge.available_words.first()
+    None
 }
 
-fn read_feedback(word: &Word) -> Vec<CharFeedback> {
+fn read_feedback(word: &Word) -> Feedback {
+    println!("0 - letter not present in word\n1 - letter present but in wrong position\n2 - letter in exact position\nn - word is not recognized as a valid word");
+
     let mut raw_input: String = String::new();
     std::io::stdin()
         .read_line(&mut raw_input)
         .expect("Failed to read input");
 
-    let mut chars: Chars = raw_input.trim().chars();
-    let mut results: Vec<CharFeedback> = vec![];
-    results.reserve(5);
+    let mut chars: Peekable<Chars> = raw_input.trim().chars().peekable();
+    let mut feedback: Feedback = Feedback::new();
+
+    if chars.peek() == Some(&'n') {
+        feedback.not_valid_word = true;
+        feedback.chars_feedback.clear();
+        return feedback;
+    }
+
+    let chars_feedback: &mut Vec<CharFeedback> = &mut feedback.chars_feedback;
 
     for i in 0..5 {
         let word_ch: char = word
@@ -153,10 +209,10 @@ fn read_feedback(word: &Word) -> Vec<CharFeedback> {
             _ => panic!("Wrong input, please input only 0, 1, 2!"),
         };
 
-        results.push(new_char_feedback)
+        chars_feedback.push(new_char_feedback)
     }
 
-    results
+    feedback
 }
 
 fn read_input_words_file() -> Vec<String> {
@@ -173,11 +229,18 @@ fn main() {
     let mut knowledge: Knowledge = Knowledge::new(words);
 
     loop {
-        let selected_word: &Word = pick_word(&knowledge).expect("Couldn't pick word");
-        println!("Selected word: {}", selected_word);
+        let selected_word: Option<Word> = pick_word(&knowledge);
 
-        let feedback: Vec<CharFeedback> = read_feedback(selected_word);
-        knowledge.process_feedback(feedback);
+        if selected_word.is_none() {
+            println!("Couldn't pick word. Exiting.");
+            return;
+        }
+
+        let word: Word = selected_word.unwrap();
+        println!("Selected word: {}", word);
+
+        let feedback: Feedback = read_feedback(&word);
+        knowledge.process_feedback(feedback, &word);
         println!(
             "Known letters: {:?}\nMislaplced letters: {:?}\nExcluded letters: {:?}",
             knowledge.known_letters, knowledge.misplaced_letters, knowledge.excluded_letters
