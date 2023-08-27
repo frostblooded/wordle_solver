@@ -37,6 +37,7 @@ impl Knowledge {
 
     fn process_feedback(&mut self, feedback: Feedback, word: &Word) {
         if feedback.not_valid_word {
+            println!("Removing word {}", word);
             self.remove_available_word(word);
             self.update_available_words_input_file();
             return;
@@ -64,9 +65,7 @@ impl Knowledge {
     }
 
     fn remove_available_word(&mut self, word: &Word) {
-        if let Ok(word_pos) = self.available_words.binary_search(word) {
-            self.available_words.remove(word_pos);
-        }
+        self.available_words.retain(|w| w != word);
     }
 
     fn update_available_words_input_file(&self) {
@@ -135,6 +134,12 @@ fn has_misplaced_letters(word: &Word, knowledge: &Knowledge) -> bool {
             if word_ch_misplaced_positions.contains(&i) {
                 return true;
             }
+        }
+    }
+
+    for ch in knowledge.misplaced_letters.keys() {
+        if !word.contains(*ch) {
+            return true;
         }
     }
 

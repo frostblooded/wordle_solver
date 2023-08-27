@@ -514,7 +514,6 @@ alone
 along
 aloof
 alosa
-alose
 aloud
 alout
 alowe
@@ -1445,9 +1444,7 @@ bebop
 becap
 becco
 beche
-becky
 becks
-becry
 becut
 bedad
 beday
@@ -2338,10 +2335,8 @@ cacur
 caddy
 caddo
 cadee
-cader
 cades
 cadet
-cadew
 cadge
 cadgy
 cadie
@@ -2962,7 +2957,6 @@ cloop
 cloot
 clops
 close
-closh
 clote
 cloth
 clots
@@ -3126,7 +3120,6 @@ conns
 connu
 conoy
 conor
-consy
 const
 contd
 conte
@@ -3850,9 +3843,7 @@ diets
 difda
 dight
 digit
-digne
 digor
-digue
 dying
 diked
 dyked
@@ -3896,7 +3887,6 @@ dints
 dinus
 diode
 diols
-dione
 dioon
 diose
 diota
@@ -4006,7 +3996,6 @@ dolor
 dolos
 dolph
 dolts
-dolus
 domal
 domba
 domed
@@ -4014,7 +4003,6 @@ domer
 domes
 domic
 dompt
-domus
 donal
 donar
 donas
@@ -4738,7 +4726,6 @@ facto
 facts
 faddy
 faded
-faden
 fader
 fades
 fadge
@@ -6076,7 +6063,6 @@ guide
 guido
 guids
 guyed
-guyer
 guige
 guijo
 guild
@@ -6325,7 +6311,6 @@ hazen
 hazer
 hazes
 hazle
-hdqrs
 heady
 heads
 heald
@@ -7397,7 +7382,6 @@ judos
 jufti
 jufts
 jugal
-juger
 jugum
 juyas
 juice
@@ -7692,7 +7676,6 @@ kilts
 kimbo
 kimmo
 kinah
-kinch
 kinds
 kines
 kings
@@ -9272,7 +9255,6 @@ morph
 morra
 morro
 morse
-morth
 morts
 morus
 mosan
@@ -11028,7 +11010,6 @@ pseud
 pshav
 pshaw
 psych
-psize
 psoae
 psoai
 psoas
@@ -11648,7 +11629,6 @@ rimed
 rimer
 rimes
 rimpi
-rinch
 rinde
 rindy
 rinds
@@ -12843,7 +12823,6 @@ slyly
 slime
 slimy
 slims
-sline
 sling
 slink
 slipe
@@ -15786,7 +15765,6 @@ xylia
 xylic
 xylyl
 xylol
-xylon
 xinca
 xyrid
 xyris
