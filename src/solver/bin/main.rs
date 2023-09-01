@@ -5,38 +5,13 @@ mod knowledge;
 use config::INPUT_FILE_PATH;
 use feedback::Feedback;
 use knowledge::{Knowledge, Word};
-use std::{collections::HashMap, iter::Peekable, str::Chars};
+use std::{iter::Peekable, str::Chars};
 
 use crate::{config::WORD_LENGTH, feedback::CharFeedback};
 
-fn get_char_counts(word: &Word) -> HashMap<char, u8> {
-    let mut results: HashMap<char, u8> = HashMap::new();
-
-    for char in word.chars() {
-        if let Some(char_entry) = results.get_mut(&char) {
-            *char_entry += 1;
-        } else {
-            results.insert(char, 1);
-        }
-    }
-
-    results
-}
-
-fn has_repeating_letters(word: &Word) -> bool {
-    get_char_counts(word).values().any(|&v| v >= 2)
-}
-
-fn is_word_allowed(word: &Word, knowledge: &Knowledge) -> bool {
-    !has_repeating_letters(word)
-        && !knowledge.word_has_excluded_letters(word)
-        && !knowledge.word_has_misplaced_letters(word)
-        && !knowledge.word_has_wrong_known_letters(word)
-}
-
 fn pick_word(knowledge: &Knowledge) -> Option<Word> {
     for word in &knowledge.available_words {
-        if is_word_allowed(word, knowledge) {
+        if knowledge.is_word_allowed(word) {
             return Some(word.clone());
         }
     }

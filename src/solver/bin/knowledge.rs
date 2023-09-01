@@ -1,5 +1,5 @@
 use std::{
-    collections::HashMap,
+    collections::{HashMap, HashSet},
     fs::File,
     io::{self, Write},
 };
@@ -14,7 +14,7 @@ pub type Word = String;
 #[derive(Debug)]
 pub struct Knowledge {
     pub known_letters: [Option<char>; WORD_LENGTH],
-    pub excluded_letters: Vec<char>,
+    pub excluded_letters: HashSet<char>,
     pub misplaced_letters: HashMap<char, Vec<usize>>,
     pub available_words: Vec<Word>,
 }
@@ -23,10 +23,39 @@ impl Knowledge {
     pub fn new(available_words: Vec<Word>) -> Self {
         Self {
             known_letters: [None; WORD_LENGTH],
-            excluded_letters: vec![],
+            excluded_letters: HashSet::new(),
             misplaced_letters: HashMap::new(),
             available_words,
         }
+    }
+
+    fn process_no_match(&mut self, ch: char) {
+        if self.known_letters.contains(&Some(ch)) {
+            return;
+        }
+
+        if self.misplaced_letters.contains_key(&ch) {
+            return;
+        }
+
+        self.excluded_letters.insert(ch);
+    }
+
+    fn process_wrong_position(&mut self, ch: char, pos: usize) {
+        if let Some(ch_entry) = self.misplaced_letters.get_mut(&ch) {
+            ch_entry.push(pos);
+        } else {
+            self.misplaced_letters.insert(ch, vec![pos]);
+        }
+    }
+
+    fn process_exact_match(&mut self, ch: char, pos: usize) {
+        let known_letter_cell: &mut Option<char> = self
+            .known_letters
+            .get_mut(pos)
+            .unwrap_or_else(|| panic!("Known letters not initialized with {} chars?", WORD_LENGTH));
+
+        *known_letter_cell = Some(ch);
     }
 
     pub fn process_feedback(&mut self, feedback: Feedback, word: &Word) {
@@ -36,23 +65,21 @@ impl Knowledge {
             return;
         }
 
-        for char_feedback in feedback.chars_feedback {
-            match char_feedback {
-                CharFeedback::NoMatch(ch) => self.excluded_letters.push(ch),
-                CharFeedback::WrongPosition(ch, i) => {
-                    if let Some(ch_entry) = self.misplaced_letters.get_mut(&ch) {
-                        ch_entry.push(i);
-                    } else {
-                        self.misplaced_letters.insert(ch, vec![i]);
-                    }
-                }
-                CharFeedback::ExactMatch(ch, i) => {
-                    let known_letter_cell: &mut Option<char> =
-                        self.known_letters.get_mut(i).unwrap_or_else(|| {
-                            panic!("Known letters not initialized with {} chars?", WORD_LENGTH)
-                        });
-                    *known_letter_cell = Some(ch);
-                }
+        for char_feedback in &feedback.chars_feedback {
+            if let CharFeedback::ExactMatch(ch, i) = char_feedback {
+                self.process_exact_match(*ch, *i);
+            }
+        }
+
+        for char_feedback in &feedback.chars_feedback {
+            if let CharFeedback::WrongPosition(ch, i) = char_feedback {
+                self.process_wrong_position(*ch, *i);
+            }
+        }
+
+        for char_feedback in &feedback.chars_feedback {
+            if let CharFeedback::NoMatch(ch) = char_feedback {
+                self.process_no_match(*ch);
             }
         }
     }
@@ -125,5 +152,11 @@ impl Knowledge {
         }
 
         false
+    }
+
+    pub fn is_word_allowed(&self, word: &Word) -> bool {
+        !self.word_has_excluded_letters(word)
+            && !self.word_has_misplaced_letters(word)
+            && !self.word_has_wrong_known_letters(word)
     }
 }

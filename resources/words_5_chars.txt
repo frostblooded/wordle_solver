@@ -1178,7 +1178,6 @@ babel
 babes
 babis
 babka
-bable
 baboo
 babua
 babul
@@ -1203,7 +1202,6 @@ baffs
 bafta
 bagdi
 bagel
-bagge
 baggy
 bagie
 bagio
@@ -2323,8 +2321,6 @@ cable
 cabob
 cabot
 cabre
-cacam
-cacan
 cacao
 cacas
 cacei
@@ -4355,7 +4351,6 @@ eeten
 effet
 effie
 egads
-egall
 egers
 egest
 eggar
@@ -4622,7 +4617,6 @@ estoc
 estop
 estre
 estus
-etang
 etape
 ethal
 ethan
@@ -4650,7 +4644,6 @@ euros
 eurus
 eusol
 evade
-evang
 evans
 evase
 eveck
@@ -7193,7 +7186,6 @@ jakey
 jakes
 jakob
 jakos
-jakun
 jalap
 jalee
 jalet
@@ -7212,7 +7204,6 @@ janet
 janos
 janty
 jantu
-janua
 janus
 japan
 japed
@@ -7223,7 +7214,6 @@ jarde
 jared
 jarls
 jarmo
-jarra
 jarry
 jarvy
 jasey
@@ -7481,7 +7471,6 @@ kaneh
 kanes
 kanga
 kanji
-kannu
 kansa
 kanzu
 kaons
