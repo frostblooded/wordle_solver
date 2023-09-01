@@ -217,7 +217,6 @@ adzer
 adzes
 aecia
 aedes
-aeger
 aegir
 aegis
 aegle
@@ -621,7 +620,6 @@ ample
 amply
 ampul
 amrit
-amsel
 amuck
 amula
 amuse
@@ -1881,14 +1879,12 @@ bohor
 boyar
 boyau
 boyce
-boyer
 boiko
 boyla
 boily
 boils
 boing
 boyos
-boise
 boist
 boite
 bokom
@@ -2100,7 +2096,6 @@ brief
 brier
 bries
 brigs
-brike
 brill
 brims
 brine
@@ -2343,7 +2338,6 @@ cadua
 cadus
 caeca
 cafes
-caffa
 cafiz
 cafoy
 caged
@@ -2402,7 +2396,6 @@ cameo
 cames
 camis
 camla
-campa
 campe
 campi
 campy
@@ -2545,7 +2538,6 @@ cavia
 cavie
 cavil
 cavin
-cavum
 cavus
 cawed
 cawky
@@ -2781,7 +2773,6 @@ chron
 chubb
 chubs
 chuck
-chude
 chuet
 chufa
 chuff
@@ -3215,7 +3206,6 @@ cotan
 cotch
 coted
 cotes
-cothe
 cothy
 cotys
 cotta
@@ -3600,7 +3590,6 @@ datil
 datos
 datsw
 datto
-datum
 daube
 dauby
 daubs
@@ -4173,7 +4162,6 @@ drunk
 drunt
 drupa
 drupe
-drury
 druse
 drusy
 druxy
@@ -4504,7 +4492,6 @@ ennia
 ennoy
 ennui
 enoch
-enode
 enoil
 enols
 enorm
@@ -4578,7 +4565,6 @@ eryon
 erizo
 ermit
 ernes
-ernie
 ernst
 erode
 erose
@@ -5233,7 +5219,6 @@ frags
 fraid
 fraik
 frail
-frayn
 frays
 frame
 franc
@@ -5793,7 +5778,6 @@ gnast
 gnats
 gnawn
 gnaws
-gnide
 gnoff
 gnome
 goads
@@ -5920,7 +5904,6 @@ gramp
 grams
 grana
 grand
-grane
 grank
 grano
 grant
@@ -5952,7 +5935,6 @@ greys
 greit
 grene
 greta
-grete
 grewt
 grice
 gride
@@ -6260,7 +6242,6 @@ harts
 hasan
 hashy
 hasht
-hasid
 hasky
 hasnt
 hasps
@@ -6603,7 +6584,6 @@ horry
 horse
 horsy
 horst
-hosea
 hosed
 hosel
 hosen
@@ -6735,7 +6715,6 @@ yaray
 yarak
 yards
 yarer
-yarke
 yarly
 yarns
 yarry
@@ -8885,7 +8864,6 @@ melts
 memos
 menad
 menat
-mende
 mendi
 mendy
 mends
@@ -10061,7 +10039,6 @@ oscar
 oscin
 osela
 oshac
-oshea
 oside
 osier
 oskar
@@ -10070,7 +10047,6 @@ osmin
 osmol
 osone
 ossal
-ossea
 osset
 ossia
 ostia
@@ -10155,7 +10131,6 @@ ozias
 ozone
 paauw
 pablo
-pacay
 pacas
 paced
 pacer
@@ -11187,7 +11162,6 @@ rabat
 rabbi
 rabic
 rabid
-rabin
 rabot
 raced
 racer
@@ -12432,7 +12406,6 @@ shiai
 shyam
 shice
 shick
-shide
 shied
 shiel
 shier
@@ -12472,7 +12445,6 @@ shoad
 shoal
 shoat
 shock
-shode
 shoed
 shoer
 shoes
@@ -13545,7 +13517,6 @@ suity
 suits
 sukey
 sulci
-sulea
 sulfa
 sulfo
 sulka
@@ -13636,7 +13607,6 @@ sweet
 swego
 swell
 swelp
-swelt
 swept
 swerd
 swick
@@ -13905,7 +13875,6 @@ tecon
 tecta
 tecum
 teddy
-tedge
 teems
 teeny
 teens
@@ -14389,7 +14358,6 @@ tozee
 tozer
 trabu
 trace
-tracy
 track
 tract
 trade
@@ -14566,17 +14534,13 @@ tumor
 tumps
 tunal
 tunas
-tunca
 tuned
 tuner
 tunes
 tunga
-tungo
 tungs
 tunic
 tunis
-tunka
-tunna
 tunny
 tupek
 tupik
@@ -15181,7 +15145,6 @@ virge
 virgo
 virid
 virls
-viron
 virtu
 virus
 visas
@@ -15356,7 +15319,6 @@ warns
 warnt
 warps
 warri
-warse
 warst
 warth
 warty
@@ -15441,7 +15403,6 @@ welsh
 welts
 wemmy
 wench
-wende
 wendi
 wendy
 wends
@@ -15732,7 +15693,6 @@ wroot
 wrote
 wroth
 wrung
-wudge
 wunna
 wurly
 wurst

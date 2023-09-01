@@ -14,3 +14,4 @@ name = "data_converter"
 path = "src/data_converter/bin/main.rs"
 
 [dependencies]
+rand = "0.8.4"

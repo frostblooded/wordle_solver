@@ -9,16 +9,6 @@ use std::{iter::Peekable, str::Chars};
 
 use crate::{config::WORD_LENGTH, feedback::CharFeedback};
 
-fn pick_word(knowledge: &Knowledge) -> Option<Word> {
-    for word in &knowledge.available_words {
-        if knowledge.is_word_allowed(word) {
-            return Some(word.clone());
-        }
-    }
-
-    None
-}
-
 fn read_feedback(word: &Word) -> Feedback {
     println!("0 - letter not present in word\n1 - letter present but in wrong position\n2 - letter in exact position\nn - word is not recognized as a valid word");
 
@@ -74,7 +64,7 @@ fn main() {
     let mut knowledge: Knowledge = Knowledge::new(words);
 
     loop {
-        let selected_word: Option<Word> = pick_word(&knowledge);
+        let selected_word: Option<Word> = knowledge.pick_word();
 
         if selected_word.is_none() {
             println!("Couldn't pick word. Exiting.");

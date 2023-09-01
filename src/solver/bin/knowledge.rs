@@ -4,6 +4,8 @@ use std::{
     io::{self, Write},
 };
 
+use rand::seq::IteratorRandom;
+
 use crate::{
     config::{INPUT_FILE_PATH, WORD_LENGTH},
     feedback::{CharFeedback, Feedback},
@@ -84,11 +86,11 @@ impl Knowledge {
         }
     }
 
-    pub fn remove_available_word(&mut self, word: &Word) {
+    fn remove_available_word(&mut self, word: &Word) {
         self.available_words.retain(|w| w != word);
     }
 
-    pub fn update_available_words_input_file(&self) {
+    fn update_available_words_input_file(&self) {
         let output_file: File = File::create(INPUT_FILE_PATH)
             .expect("Failed to create and open input file for updating");
         let mut output_writer: io::BufWriter<File> = io::BufWriter::new(output_file);
@@ -100,7 +102,7 @@ impl Knowledge {
         }
     }
 
-    pub fn word_has_excluded_letters(&self, word: &Word) -> bool {
+    fn word_has_excluded_letters(&self, word: &Word) -> bool {
         for ch in word.chars() {
             if self.excluded_letters.contains(&ch) {
                 return true;
@@ -110,7 +112,7 @@ impl Knowledge {
         false
     }
 
-    pub fn word_has_misplaced_letters(&self, word: &Word) -> bool {
+    fn word_has_misplaced_letters(&self, word: &Word) -> bool {
         for i in 0..WORD_LENGTH {
             let word_ch: char = word
                 .chars()
@@ -133,7 +135,7 @@ impl Knowledge {
         false
     }
 
-    pub fn word_has_wrong_known_letters(&self, word: &Word) -> bool {
+    fn word_has_wrong_known_letters(&self, word: &Word) -> bool {
         for i in 0..WORD_LENGTH {
             let word_ch: char = word
                 .chars()
@@ -154,9 +156,17 @@ impl Knowledge {
         false
     }
 
-    pub fn is_word_allowed(&self, word: &Word) -> bool {
+    fn is_word_allowed(&self, word: &Word) -> bool {
         !self.word_has_excluded_letters(word)
             && !self.word_has_misplaced_letters(word)
             && !self.word_has_wrong_known_letters(word)
+    }
+
+    pub fn pick_word(&self) -> Option<Word> {
+        self.available_words
+            .iter()
+            .filter(|w| self.is_word_allowed(w))
+            .choose(&mut rand::thread_rng())
+            .cloned()
     }
 }
