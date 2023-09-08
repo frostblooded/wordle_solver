@@ -4585,7 +4585,6 @@ esbay
 escar
 escot
 escry
-esere
 eshin
 eskar
 esker
@@ -11376,7 +11375,6 @@ reefs
 reeky
 reeks
 reels
-reese
 reesk
 reest
 reeve
@@ -12300,7 +12298,6 @@ serra
 serry
 serta
 serum
-serut
 serve
 servo
 sesia

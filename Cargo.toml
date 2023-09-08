@@ -3,15 +3,5 @@ name = "wordle_solver"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[[bin]]
-name = "solver"
-path = "src/solver/bin/main.rs"
-
-[[bin]]
-name = "data_converter"
-path = "src/data_converter/bin/main.rs"
-
 [dependencies]
 rand = "0.8.4"
